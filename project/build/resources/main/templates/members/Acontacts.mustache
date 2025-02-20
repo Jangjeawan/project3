@@ -1,0 +1,171 @@
+{{>layouts/header}}
+
+<div class="container">
+    <h2>{{loginId}} 님의 연락처 목록</h2>
+
+    <!-- 상단 메뉴 (오른쪽 정렬) -->
+    <div class="top-menu">
+        <div class="button-group">
+            <button class="btn search-btn" onclick="location.href='/members/Aname'">🔍 검색</button>
+            <button class="btn add-btn" onclick="location.href='/members/addContact'">+ 연락처 추가</button>
+            <button class="btn logout-btn" onclick="location.href='/members/logout'">Logout</button>
+        </div>
+    </div>
+
+    <!-- 연락처 테이블 -->
+    <table class="contact-table">
+        <thead>
+        <tr>
+            <th>이름</th>
+            <th>전화번호</th>
+            <th>주소</th>
+            <th>그룹</th>
+            <th>관리</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#contacts}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{phoneNumber}}</td>
+                <td>{{address}}</td>
+                <td>{{moimName}}</td>
+                <td>
+                    <button class="btn edit-btn" onclick="location.href='/members/update/{{contactId}}'">✏ 수정</button>
+                    <button class="btn delete-btn" onclick="deleteContact('{{contactId}}')">🗑 삭제</button>
+                </td>
+            </tr>
+        {{/contacts}}
+        {{^contacts}}
+            <tr>
+                <td colspan="5">등록된 연락처가 없습니다.</td>
+            </tr>
+        {{/contacts}}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function deleteContact(contactId) {
+        if (confirm("정말 삭제하시겠습니까?")) {
+            location.href = "/members/deleteContact?contactId=" + contactId;
+        }
+    }
+</script>
+
+{{>layouts/footer}}
+
+<!-- 스타일 추가 -->
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .top-menu {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
+
+    .button-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-btn {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .search-btn:hover {
+        background-color: #218838;
+    }
+
+    .add-btn {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .add-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .logout-btn {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .logout-btn:hover {
+        background-color: #c82333;
+    }
+
+    .contact-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .contact-table th, .contact-table td {
+        padding: 12px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+    .contact-table th {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .contact-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .contact-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        font-size: 0.9em;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .edit-btn {
+        background-color: #ffc107;
+        color: white;
+    }
+
+    .edit-btn:hover {
+        background-color: #e0a800;
+    }
+
+    .delete-btn {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+</style>
